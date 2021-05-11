@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>filter</title>
+    <style>
+        #shape {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease
+        }
+        
+        .svgBtn:hover #shape {
+            stroke-dasharray: 70 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: #06D6A0
+        }
+        
+        #line {
+            stroke-dashoffset: 320px;
+            transition: 1s all ease
+        }
+        
+        .svgLine:hover #line {
+            stroke-dashoffset: 0;
+        }
+        
+        #circle {
+            /*设置圆的stroke-dasharray和stroke-dashoffset，为圆的周长*/
+            transition: all 2s;
+            stroke-dasharray: 314, 314;
+            stroke-dashoffset: 314;
+        }
+        
+        .svgCircle:hover #circle {
+            stroke-dashoffset: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+    滤镜用来向形状和文本添加特殊的效果。
+        可用的滤镜有
+            - feBlend
+            - feColorMatrix 过滤器是用来转换偏移的图像使之更接近黑色的颜色。 每一像素的颜色值(一个表示为[红,绿,蓝,透明度] 的矢量) 都经过矩阵乘法 (matrix multiplated) 计算出的新颜色。 '0.2'矩阵的三个值都获取乘以红色，绿色和蓝色通道。降低其值带来的颜色至黑色（黑色为0）
+            - feComponentTransfer
+            - feComposite
+            - feConvolveMatrix
+            - feDiffuseLighting
+            - feDisplacementMap
+            - feFlood
+            - feGaussianBlur 定义模糊效果 对输入图像进行高斯模糊 stdDeviation属性定义了模糊量
+                - in属性 
+                    SourceGraphic 该关键词表示图形元素自身将作为<filter>原语的原始输入.
+                    SourceAlpha SourceAlpha与SourceGraphic具有相同的规则除了SourceAlpha只使用元素的透明度.在Alpha通道使用残影，而不是整个RGBA像素
+                    BackgroundImage 使用图片
+                    BackgroundAlpha 使用图片透明度. 
+            - feImage
+            - feMerge
+            - feMorphology
+            - feOffset 定义阴影效果 该输入图像作为一个整体，在属性dx和属性dy的值指定了它的偏移量。
+            - feSpecularLighting
+            - feTile
+            - feTurbulence
+            - feDistantLight
+            - fePointLight
+            - feSpotLight
+        <defs> 和 <filter>
+            所有互联网的SVG滤镜定义在<defs>元素中。<defs>元素定义短并含有特殊元素（如滤镜）定义。
+            <filter>标签用来定义SVG滤镜。
+                <filter>元素id属性定义一个滤镜的唯一名称
+                <feGaussianBlur>元素定义模糊效果
+                in="SourceGraphic"这个部分定义了由整个图像创建效果
+                stdDeviation属性定义模糊量
+                <rect>元素的滤镜属性用来把元素链接到"f1"滤镜
+-->
+    <p>feGaussianBlur</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <!-- 定义滤镜 -->
+        <defs>
+            <filter id="f1" x="0" y="0">
+                <feGaussianBlur in="ScourecGraphic" stdDeviation="15" />
+            </filter>
+        </defs>
+        <!-- 通过filter来使用滤镜  url（） -->
+        <rect width="90" height="90" stroke="green" stroke-width="3" fill="yellow" filter="url(#f1)"></rect>
+    </svg>
+    <p>feOffset feBlend</p>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="f2" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
+            <feBlend in="SourceGraphic" in2="offOut" mode="normal" />
+          </filter>
+        </defs>
+        <rect width="90" height="90" stroke="green" stroke-width="3"
+        fill="yellow" filter="url(#f2)" />
+      </svg>
+    <p>feOffset feGaussianBlur feBlend</p>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+          </filter>
+        </defs>
+        <rect width="90" height="90" stroke="green" stroke-width="3"
+        fill="yellow" filter="url(#f3)" />
+      </svg>
+    <p>feColorMatrix</p>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="f4" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
+            <feColorMatrix result="matrixOut" in="offOut" type="matrix"
+            values="0.2 0 0 0 0 
+                    0 0.2 0 0 0 
+                    0 0 0.2 0 0 
+                    0 0 0 1 0" />
+            <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+          </filter>
+        </defs>
+        <rect width="90" height="90" stroke="green" stroke-width="3"
+        fill="yellow" filter="url(#f4)" />
+      </svg>
+
+</body>
+
+</html>

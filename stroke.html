@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stroke</title>
+    <style>
+        #shape {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease
+        }
+        .svgBtn:hover #shape {
+            stroke-dasharray: 70 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: #06D6A0
+        }
+        #line{
+            stroke-dashoffset: 320px;
+            transition: 1s all ease
+        }
+        .svgLine:hover #line {
+            stroke-dashoffset: 0;
+        }
+        #circle{
+            /*设置圆的stroke-dasharray和stroke-dashoffset，为圆的周长*/
+            transition: all 2s;
+            stroke-dasharray:314,314;
+            stroke-dashoffset:314;
+        }
+        .svgCircle:hover #circle{
+            stroke-dashoffset:0;
+        }
+    </style>
+</head>
+<body>
+<!--
+    stroke属性，可应用于任何种类的线条，文字和元素就像一个圆的轮廓
+        stroke // 定义颜色
+        stroke-width // 定义厚度 （即宽度）
+        stroke-linecap 定义不同类型的开放路径的终结
+            - butt 直角边缘 无内边距
+            - round 圆角边缘 有内边距
+            - square 直角边缘 有内边距
+        stroke-dasharray 用于创建虚线
+            eg:stroke-dasharray = '10'
+               stroke-dasharray = '10, 10, 5, 5'
+            - 一个参数时 表示每段虚线长度之间的间距
+            - 多个参数时：一个表示长度一个表示间距 10, 10,    5, 5
+        stroke-linejoin 描边转角的表现方式
+            - miter 尖叫
+            - round 圆角
+            - bevel 斜角
+        stroke-opacity 描边透明度
+        stroke-dashoffset 偏移
+            这个属性是相对于起始点的偏移，正数偏移x值的时候，相当于往左移动了x个长度单位，负数偏移x的时候，相当于往右移动了x个长度单位。
+            需要注意的是，不管偏移的方向是哪边，要记得dasharray 是循环的，也就是 虚线-间隔-虚线-间隔。
+            这个属性要搭配stroke-dashoffset才能看得出来效果，非虚线的话，是无法看出偏移的。
+
+-->
+    <p>stroke</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none">
+            <path stroke="red" d="M5 20 l215 0"/>
+            <path stroke="blue" d="M5 40 l215 0"/>
+            <path stroke="black" d="M5 60 l215 0"/>
+        </g>
+    </svg>
+    <p>stroke-width</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="black">
+            <path stroke-width="2" d="M5 80 l215 0"/>
+            <path stroke-width="4" d="M5 100 l215 0"/>
+            <path stroke-width="6" d="M5 120 l215 0"/>
+        </g>
+    </svg>
+    <p>stroke-linecap</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="black" stroke-width="6">
+            <path stroke-linecap="butt" d="M5 20 l215 0"/>
+            <path stroke-linecap="round" d="M5 40 l215 0"/>
+            <path stroke-linecap="square" d="M5 60 l215 0"/>
+        </g>
+    </svg>
+    <p>stroke-dasharray</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="black" stroke-width="4">
+            <path stroke-dasharray="5,5" d="M5 20 l215 0"/>
+            <path stroke-dasharray="10,10" d="M5 40 l215 0"/>
+            <path stroke-dasharray="20,10,5,5,5,10" d="M5 60 l215 0"/>
+        </g>
+    </svg>
+    <p>stroke-linejoin</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="black" stroke-width="10">
+            <path stroke-linejoin="miter" d="M5 20 L50 20 L50 50"/>
+            <path stroke-linejoin="round" d="M5 60 L50 60 L50 100"/>
+            <path stroke-linejoin="bevel" d="M5 120 L50 120 L50 150"/>
+        </g>
+    </svg>
+    <p>stroke-opacity</p>
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="black" stroke-width="10">
+            <path stroke-dasharray="5,5" d="M5 20 l215 0" stroke-opacity="0.5"/>
+        </g>
+    </svg>
+    <p>stroke-dashoffset 鼠标划入显示</p>
+    <svg xmlns="http://www.w3.org/2000/svg" class="svgLine">
+        <line id="line" x1="30" y1="30" x2="300" y2="30" stroke-width="20" stroke="red" stroke-dasharray="300,320"/>
+    </svg>
+    <svg height="40" width="150" class="svgBtn">
+        <rect id="shape" height="40" width="150" />
+    </svg>
+    <svg  width="200" height="200" viewBox="0 0 200 200" class="svgCircle">
+        <circle id="circle" cx="100" cy="80" r="50"  fill="gray" stroke-width="5" stroke="green" />
+    </svg>
+</body>
+</html>

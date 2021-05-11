@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>path</title>
+</head>
+<body>
+<!--
+    <path> 元素用于定义一个路径。
+        坐标是以浏览器左上角为原点
+        d:路径内容
+            M = moveto 开始画路径 路径起点
+            L = lineto 直线路径
+            H = horizontal lineto 水平直线
+            V = vertical lineto 垂直直线
+            C = curveto 曲线路径
+            S = smooth curveto 平滑曲线路径
+            Q = quadratic Bézier curve 二次方贝塞尔曲线路径 需要两组坐标 第一个是控制点坐标 第二个是终点坐标
+            T = smooth quadratic Bézier curveto 平滑二次方贝塞尔曲线路径
+            A = elliptical Arc 椭圆弧
+            Z = closepath 封闭路径
+            注意：以上所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位。
+-->
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 100%;height: 100vh">
+<!--        画三角形-->
+        <path d="M0 300 L100 0 L200 300 Z" style="fill: none;stroke-width: 2;stroke: red"/>
+<!--        中间加一横线-->
+<!--        <path d="M50 150 L150 150 Z" style="fill: none;stroke-width: 2;stroke: yellowgreen"/>-->
+<!--        曲线-->
+        <path d="M0 300 Q100 0 200 300 " style="fill: none;stroke-width: 2;stroke: greenyellow"/>
+    </svg>
+</body>
+</html>

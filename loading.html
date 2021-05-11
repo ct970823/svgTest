@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loading</title>
+    <style>
+        /* 
+            通过改变stroke-dasharray来使圆达到短线的效果，
+            再通过stroke-dashoffset使圆环转起来 
+            为了使圆环在旋转过程中结束点不一致，让整个svg都转起来，这样显得更流畅一些
+        */
+        
+        .loading {
+            width: 80px;
+            height: 80px;
+            animation: rotate 2s linear infinite;
+        }
+        
+        .circle {
+            stroke-dasharray: 1 200;
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            animation: identifier 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes identifier {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0;
+            }
+            50% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -35;
+            }
+            100% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -124;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="loading">
+        <circle class="circle" cx="40" cy="40" r="20" fill="none" stroke-width="5" stroke-miterlimit="10" stroke="red"></circle>
+    </svg>
+</body>
+
+</html>
